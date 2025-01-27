@@ -1,0 +1,61 @@
+from manim import *
+
+class GraficoEscada(Scene):
+    def construct(self):
+        # Fundo branco
+        self.camera.background_color = WHITE
+
+        # Cores
+        cor_laranja = ORANGE
+        cor_roxa = PURPLE
+
+        titulo = Text("GRÁFICO DE SUBSTÂNCIA PURA", font_size=40).set_color_by_gradient(ORANGE, PURPLE)
+        titulo.to_edge(UP)
+        self.play(Write(titulo))
+
+        # Subtítulo " 'RAMPA' "
+        subtitulo = Text("\"ESCADA\"", font_size=30).set_color_by_gradient(PURPLE, ORANGE)
+        subtitulo.next_to(titulo, DOWN, buff=0.5)  # Posiciona o subtítulo abaixo do título
+        self.play(Write(subtitulo))
+
+        # Eixos
+        axes = Axes(
+            x_range=[0, 6, 1],
+            y_range=[0, 6, 1],
+            axis_config={"color": BLACK},
+            tips=False
+        )
+        labels = axes.get_axis_labels(x_label="", y_label="")
+
+        # Trajetória "escada"
+        ponto_S = axes.c2p(0, 0)
+        ponto_SL = axes.c2p(1, 1)
+        ponto_N = axes.c2p(2, 1)
+        ponto_LG = axes.c2p(3, 2)
+        ponto_G = axes.c2p(4, 2)
+        ponto_G_final = axes.c2p(5, 3)
+
+        linha_1 = Line(ponto_S, ponto_SL, color=cor_laranja, stroke_width=6)
+        linha_2 = Line(ponto_SL, ponto_N, color=cor_roxa, stroke_width=6)
+        linha_3 = Line(ponto_N, ponto_LG, color=cor_laranja, stroke_width=6)
+        linha_4 = Line(ponto_LG, ponto_G, color=cor_roxa, stroke_width=6)
+        linha_5 = Line(ponto_G, ponto_G_final, color=cor_laranja, stroke_width=6)
+
+        # Legendas
+        texto_S = Text("S", color=cor_laranja, font_size=24).next_to(linha_1, LEFT)
+        texto_SL = Text("S+L", color=cor_roxa, font_size=24).next_to(linha_2, UP)
+        texto_N = Text("L", color=cor_laranja, font_size=24).move_to(linha_3.get_center() + UP * 0.3)
+        texto_LG = Text("L+G", color=cor_roxa, font_size=24).next_to(linha_4, UP)
+        texto_G = Text("G", color=cor_laranja, font_size=24).next_to(ponto_G, RIGHT)
+        texto_G_final = Text("G", color=cor_laranja, font_size=24).next_to(ponto_G_final, RIGHT)
+
+        # Adicionar os elementos à cena
+        self.play(Create(axes), Write(labels))
+        self.play(Create(linha_1), Write(texto_S))
+        self.play(Create(linha_2), Write(texto_SL))
+        self.play(Create(linha_3), Write(texto_N))
+        self.play(Create(linha_4), Write(texto_LG))
+        self.play(Create(linha_5), Write(texto_G_final))
+
+        # Manter a animação
+        self.wait(2)

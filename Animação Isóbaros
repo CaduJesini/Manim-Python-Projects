@@ -1,0 +1,54 @@
+from manim import *
+
+class IsobarosScene(Scene):
+    def construct(self):
+        # Configuração do fundo branco
+        self.camera.background_color = WHITE
+
+        titulo = Text("ISÓBAROS", font_size=64).set_color_by_gradient(ORANGE, PURPLE)
+        titulo.to_edge(UP)
+        self.play(Write(titulo))
+
+        # Subtítulo "MESMO N° DE MASSA"
+        subtitulo = Text("MESMO N° DE MASSA", font_size=48).set_color_by_gradient(PURPLE, ORANGE)
+        subtitulo.next_to(titulo, DOWN, buff=0.5)  # Posiciona o subtítulo abaixo do título
+        self.play(Write(subtitulo))  # Escreve o subtítulo
+
+        # Elemento 40/19 K com cores específicas
+        k_element = MathTex(
+            "^", "{40}", "_", "{19}", "K"
+        )
+        k_element[1].set_color(PURPLE)  # Cor roxa para o número 40
+        k_element[3].set_color(ORANGE)  # Cor laranja para o número 19
+        k_element[4].set_color(ORANGE)  # Cor laranja para a letra K
+        k_element.scale(1.5)
+        k_element.shift(LEFT * 2)
+
+        # Elemento 40/20 Ca com cores específicas
+        ca_element = MathTex(
+            "^", "{40}", "_", "{20}", "Ca"
+        )
+        ca_element[1].set_color(PURPLE)  # Cor roxa para o número 40
+        ca_element[3].set_color(ORANGE)  # Cor laranja para o número 20
+        ca_element[4].set_color(ORANGE)  # Cor laranja para a letra Ca
+        ca_element.scale(1.5)
+        ca_element.shift(RIGHT * 2)
+
+        # Setas entre os elementos
+        arrow_left = Arrow(start=LEFT, end=ORIGIN, color=PURPLE)
+        arrow_right = Arrow(start=ORIGIN, end=RIGHT, color=PURPLE)
+
+        # Adicionar elementos na cena
+        self.wait(1)
+
+        self.play(Write(k_element))
+        self.wait(0.5)
+
+        self.play(GrowArrow(arrow_left))
+        self.wait(0.5)
+
+        self.play(GrowArrow(arrow_right))
+        self.wait(0.5)
+
+        self.play(Write(ca_element))
+        self.wait(2)

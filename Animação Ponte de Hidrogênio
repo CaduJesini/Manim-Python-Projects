@@ -1,0 +1,56 @@
+from manim import *
+
+class PonteDeHidrogenio(Scene):
+    def construct(self):
+        # Configurar o fundo branco
+        self.camera.background_color = WHITE
+
+        # Criar os átomos de oxigênio e hidrogênio
+        oxigenio_color = ORANGE
+        hidrogenio_color = PURPLE
+
+        # Função para criar moléculas
+        def criar_molecula():
+            oxigenio = Circle(radius=0.4, color=oxigenio_color, fill_opacity=1).shift(LEFT * 0.5)
+            hidrogenio1 = Circle(radius=0.3, color=hidrogenio_color, fill_opacity=1).shift(UP * 0.5 + RIGHT * 0.5)
+            hidrogenio2 = Circle(radius=0.3, color=hidrogenio_color, fill_opacity=1).shift(DOWN * 0.5 + RIGHT * 0.5)
+
+            oxigenio_label = Text("O", font_size=36, color=WHITE).move_to(oxigenio.get_center())
+            hidrogenio1_label = Text("H", font_size=28, color=WHITE).move_to(hidrogenio1.get_center())
+            hidrogenio2_label = Text("H", font_size=28, color=WHITE).move_to(hidrogenio2.get_center())
+            
+            ligacao1 = Line(oxigenio.get_center(), hidrogenio1.get_center(), color=BLACK)
+            ligacao2 = Line(oxigenio.get_center(), hidrogenio2.get_center(), color=BLACK)
+
+            return VGroup(oxigenio, hidrogenio1, hidrogenio2, ligacao1, ligacao2, oxigenio_label, hidrogenio1_label, hidrogenio2_label)
+
+        # Criar moléculas e ligações de hidrogênio
+        molecula1 = criar_molecula().shift(LEFT * 3)
+        molecula2 = criar_molecula()
+        molecula3 = criar_molecula().shift(RIGHT * 3)
+
+        ponte_hidrogenio1 = DashedLine(
+            molecula1[1].get_center(), molecula2[0].get_center(), color=YELLOW
+        )
+        ponte_hidrogenio2 = DashedLine(
+            molecula2[1].get_center(), molecula3[0].get_center(), color=YELLOW
+        )
+
+        # Animação de introdução da molécula e ligações
+        self.play(FadeIn(molecula1[:5]))  # Apenas os círculos e ligações
+        self.play(FadeIn(molecula2[:5]))
+        self.play(FadeIn(molecula3[:5]))
+        self.play(Create(ponte_hidrogenio1), Create(ponte_hidrogenio2))
+
+        # Animação para as letras aparecerem aos poucos após os círculos
+        self.play(FadeIn(molecula1[5]), FadeIn(molecula1[6]), FadeIn(molecula1[7]))
+        self.play(FadeIn(molecula2[5]), FadeIn(molecula2[6]), FadeIn(molecula2[7]))
+        self.play(FadeIn(molecula3[5]), FadeIn(molecula3[6]), FadeIn(molecula3[7]))
+
+        # Animação do título
+        titulo = Text("PONTE DE HIDROGÊNIO", font_size=40).set_color_by_gradient(ORANGE, PURPLE)
+        titulo.to_edge(UP)
+        self.play(Write(titulo))
+
+        # Manter a cena por alguns segundos
+        self.wait(3)

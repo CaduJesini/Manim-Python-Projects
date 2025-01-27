@@ -1,0 +1,67 @@
+from manim import *
+
+class MassaMolar(Scene):
+    def construct(self):
+        # Definir fundo branco
+        self.camera.background_color = WHITE
+
+        # Definir cores
+        purple = "#A020F0"
+        orange = "#FF8C00"
+
+        # Texto título
+        titulo = Text("MASSA MOLAR", font_size=64).set_color_by_gradient(ORANGE, PURPLE)
+        titulo.to_edge(UP)
+        self.play(Write(titulo))
+
+
+        # Desenho dos átomos e suas massas
+        oxygen1 = Circle(radius=0.5, color=purple).shift(LEFT*3)
+        oxygen2 = Circle(radius=0.5, color=purple).shift(RIGHT*3)
+        carbon = Circle(radius=0.5, color=orange)
+
+        o1_text = Text("O", color=purple).move_to(oxygen1.get_center())
+        o2_text = Text("O", color=purple).move_to(oxygen2.get_center())
+        c_text = Text("C", color=orange).move_to(carbon.get_center())
+
+        # Mostrar os círculos e textos
+        self.play(Create(oxygen1), Create(oxygen2), Create(carbon))
+        self.play(Write(o1_text), Write(o2_text), Write(c_text))
+        self.wait(1)
+
+        # Símbolos de "+"
+        plus1 = Text("+", color=orange, font_size=36).move_to(LEFT*1.5)
+        plus2 = Text("+", color=orange, font_size=36).move_to(RIGHT*1.5)
+
+        # Mostrar os "+" centralizados
+        self.play(Write(plus1), Write(plus2))
+        self.wait(1)
+
+        # Massas molares
+        o_mass1 = Text("16 g/mol", color=purple, font_size=24).next_to(oxygen1, DOWN)
+        o_mass2 = Text("16 g/mol", color=purple, font_size=24).next_to(oxygen2, DOWN)
+        c_mass = Text("12 g/mol", color=orange, font_size=24).next_to(carbon, DOWN)
+
+        # Mostrar massas molares
+        self.play(Write(o_mass1), Write(c_mass), Write(o_mass2))
+        self.wait(1)
+
+        # Soma das massas
+        soma_text = Text("16 + 12 + 16 = 44 g/mol", color=purple, font_size=32).shift(DOWN*2)
+        self.play(Write(soma_text))
+        self.wait(1)
+
+        # Relação das massas com "=="
+        o_equals = Text("O", color=purple, font_size=32)
+        equals1 = Text("=", color=orange, font_size=32)
+        c_equals = Text("C", color=orange, font_size=32)
+        equals2 = Text("=", color=orange, font_size=32)
+        o2_equals = Text("O", color=purple, font_size=32)
+
+        # Agrupar e posicionar
+        relation_group = VGroup(o_equals, equals1, c_equals, equals2, o2_equals).arrange(buff=0.3).shift(DOWN*3)
+        self.play(Write(relation_group))
+        self.wait(1)
+
+        # Finalizar cena
+        self.wait(2)

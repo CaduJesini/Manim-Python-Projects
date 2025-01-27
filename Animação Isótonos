@@ -1,0 +1,34 @@
+from manim import *
+
+class IsotonosScene(Scene):
+    def construct(self):
+        # Define o fundo branco
+        self.camera.background_color = WHITE
+
+        # Título "ISÓTONOS" com gradiente laranja e roxo
+        titulo = Text("ISÓTONOS", font_size=64).set_color_by_gradient(ORANGE, PURPLE)
+        titulo.to_edge(UP)
+        self.play(Write(titulo))
+
+        # Elemento Cloro (Cl)
+        cl_text = MathTex(r"^{37}_{17}\mathrm{Cl}", font_size=48, color=ORANGE)
+        cl_text.next_to(titulo, DOWN, buff=1)
+        self.play(Write(cl_text))
+
+        # Cálculo do número de nêutrons para Cloro
+        cl_calc = MathTex("37 - 17 = 20 \\ \\text{nêutrons}", font_size=36, color=ORANGE)
+        cl_calc.next_to(cl_text, DOWN)
+        self.play(Write(cl_calc))
+
+        # Elemento Cálcio (Ca)
+        ca_text = MathTex(r"^{40}_{20}\mathrm{Ca}", font_size=48, color=PURPLE)
+        ca_text.next_to(cl_text, DOWN, buff=1.5)  # Ajusta a posição para baixo
+        self.play(Write(ca_text))
+
+        # Cálculo do número de nêutrons para Cálcio
+        ca_calc = MathTex("40 - 20 = 20 \\ \\text{nêutrons}", font_size=36, color=PURPLE)
+        ca_calc.next_to(ca_text, DOWN)
+        self.play(Write(ca_calc))
+
+        # Finalização
+        self.wait(2)

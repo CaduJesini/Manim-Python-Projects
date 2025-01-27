@@ -1,0 +1,40 @@
+from manim import *
+
+class IsotopesAnimation(Scene):
+    def construct(self):
+        # Fundo branco
+        self.camera.background_color = WHITE
+
+        titulo = Text("ISÓTOPOS", font_size=64).set_color_by_gradient(ORANGE, PURPLE)
+        titulo.to_edge(UP)
+        self.play(Write(titulo))
+
+        # Subtítulo "MESMO N° DE MASSA"
+        subtitulo = Text("MESMO N° DE PRÓTONS", font_size=48).set_color_by_gradient(PURPLE, ORANGE)
+        subtitulo.next_to(titulo, DOWN, buff=0.5)  # Posiciona o subtítulo abaixo do título
+        self.play(Write(subtitulo))
+
+        # Isótopos de hidrogênio
+        h_isotopes = MathTex(
+            "^{1}_{1}H", "^{2}_{1}H", "^{3}_{1}H",
+            font_size=48,
+            color=PURPLE
+        ).arrange(RIGHT, buff=1).shift(DOWN * 0.5)  # Subir os isótopos de hidrogênio
+
+        # Isótopos de oxigênio
+        o_isotopes = MathTex(
+            "^{16}_{8}O", "^{17}_{8}O", "^{18}_{8}O",
+            font_size=48,
+            color=PURPLE
+        ).arrange(RIGHT, buff=1).shift(DOWN * 1.5)  # Subir os isótopos de oxigênio
+
+        # Adicionando os elementos na cena
+        self.play(FadeIn(h_isotopes))
+        self.play(FadeIn(o_isotopes))
+
+        # Pausa para visualização
+        self.wait(2)
+
+        # Conclusão
+        self.play(FadeOut(titulo, subtitulo, h_isotopes, o_isotopes))
+        self.wait()
